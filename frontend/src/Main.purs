@@ -14,7 +14,8 @@ foreign import data_ :: String
 
 newtype GourdId = GourdId { unGourdId :: String }
 derive instance genericGourdId :: Generic GourdId
-instance showGourdId :: Show GourdId where show = gShow
+-- gShow fills the gap because of generic instances
+--instance showGourdId :: Show GourdId where show = gShow
 
 data GourdProfile = FullProfile {
     _fpId :: GourdId,
@@ -30,12 +31,8 @@ instance showGourdProfile :: Show GourdProfile where show = gShow
 
 main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
-  let value = PreviewProfile {_ppId:GourdId { unGourdId: "ASDF" }, _ppNames: ["John", "Doe"]}
-  --let value = GourdId { unGourdId: "ASDF" }
-  --let theJson = Aeson.encodeJson $ value
-  --log $ show theJson
-  res <- either (\x -> log $ "Error: " <> x) (\x -> log x) do
-    json <- jsonParser $ data_ --theJson
-    res <- Aeson.decodeJson json
-    pure $ show (res :: GourdProfile)
+  res <- either (\x -> log $ "Error: " <> x) (\x -> log $ "All ok. Result: " <> x) do
+    json <- jsonParser $ data_
+    (res :: GourdProfile) <- Aeson.decodeJson json
+    pure $ show res
   log "Finished"

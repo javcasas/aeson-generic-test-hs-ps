@@ -8,8 +8,10 @@ module Lib
 import Data.Aeson 
 import GHC.Generics (Generic)
 import Data.ByteString.Lazy.Char8 (unpack)
+import Data.Text
 
-newtype GourdId = GourdId { unGourdId :: String } deriving (Show, Generic, FromJSON, ToJSON)
+newtype GourdId = GourdId { unGourdId :: Text } deriving (Show, FromJSON, ToJSON, Generic)
+
 data GourdProfile = FullProfile {
     _fpId :: GourdId,
     _fpNames :: [String],

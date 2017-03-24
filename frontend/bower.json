@@ -8,7 +8,9 @@
   ],
   "dependencies": {
     "purescript-prelude": "^2.5.0",
-    "purescript-console": "^2.0.0"
+    "purescript-console": "^2.0.0",
+    "purescript-argonaut-generic-codecs": "^5.2.0",
+    "purescript-argonaut-codecs": "^2.1.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^2.0.0"
